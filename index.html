@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kavin Antony A R — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1117;
+    --panel:#161b22;
+    --panel-2:#1c2128;
+    --border:#30363d;
+    --text:#e6edf3;
+    --muted:#8b949e;
+    --blue:#58a6ff;
+    --gold:#d29922;
+    --green:#7ee787;
+    --pink:#ff7b72;
+    --purple:#bc8cff;
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Inter', sans-serif;
+    --radius:8px;
+    --radius-lg:8px;
+    --titlebar-font:var(--mono);
+    --shadow:0 8px 30px rgba(0,0,0,.35);
+  }
+  html[data-theme="light"]{
+    --bg:#f5f5f7;
+    --panel:#ffffff;
+    --panel-2:#ececef;
+    --border:#d8d8dd;
+    --text:#1d1d1f;
+    --muted:#6e6e73;
+    --blue:#0a7aff;
+    --gold:#b9760a;
+    --green:#1a9850;
+    --pink:#e0344c;
+    --purple:#8e44ec;
+    --shadow:0 8px 30px rgba(0,0,0,.08);
+  }
+  /* ===== macOS chrome variant ===== */
+  html[data-os="macos"]{
+    --radius:10px;
+    --radius-lg:16px;
+    --titlebar-font:var(--sans);
+  }
+  html[data-os="macos"] body{font-family:var(--sans);}
+  html[data-os="macos"] .layout{
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    margin:16px auto;
+    border:1px solid var(--border);
+  }
+  html[data-os="macos"] .titlebar{
+    border-bottom:1px solid var(--border);
+  }
+  html[data-os="macos"] .dot{width:13px;height:13px;}
+  html[data-os="macos"] .titlebar-name{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    font-weight:600;
+  }
+  .win-icon::before{content:'❖ '; color:var(--blue); font-family:var(--mono);}
+  html[data-os="macos"] .win-icon::before{content:'⌘ '; color:var(--muted);}
+  html[data-os="macos"] .terminal,
+  html[data-os="macos"] .project-card,
+  html[data-os="macos"] .stack-card,
+  html[data-os="macos"] .connect-card,
+  html[data-os="macos"] .btn,
+  html[data-os="macos"] .pill,
+  html[data-os="macos"] .tag,
+  html[data-os="macos"] .toggle-group{
+    border-radius:var(--radius-lg);
+  }
+  html[data-os="macos"] .pill, html[data-os="macos"] .tag{border-radius:999px;}
+  html[data-os="macos"] h1, html[data-os="macos"] h2{font-family:var(--sans);letter-spacing:-0.02em;}
+  html[data-os="macos"] .hero-eyebrow,
+  html[data-os="macos"] .section-num,
+  html[data-os="macos"] .terminal-body,
+  html[data-os="macos"] .pill,
+  html[data-os="macos"] .project-title,
+  html[data-os="macos"] .project-lang,
+  html[data-os="macos"] .timeline-role,
+  html[data-os="macos"] .stack-group-label{font-family:var(--mono);}
+
+  /* ===== Arch chrome variant (default) ===== */
+  html[data-os="arch"] .layout{margin:0 auto;}
+  html[data-os="arch"] .terminal,
+  html[data-os="arch"] .project-card,
+  html[data-os="arch"] .stack-card,
+  html[data-os="arch"] .connect-card,
+  html[data-os="arch"] .btn,
+  html[data-os="arch"] .titlebar,
+  html[data-os="arch"] .layout{
+    border-radius:4px;
+  }
+  html[data-os="arch"] .pill, html[data-os="arch"] .tag{border-radius:3px;}
+
+  html, body{transition:background-color .25s ease, color .25s ease;}
+  *{transition:background-color .2s ease, border-color .2s ease, color .2s ease, border-radius .2s ease;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--blue);color:var(--bg);}
+
+  /* ===== Top bar ===== */
+  .titlebar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:100;
+  }
+  .dots{display:flex;gap:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;}
+  .dot.red{background:#ff5f56;}
+  .dot.yellow{background:#ffbd2e;}
+  .dot.green{background:#27c93f;}
+  .titlebar-name{
+    margin-left:12px;
+    font-family:var(--titlebar-font);
+    font-size:13px;
+    color:var(--muted);
+  }
+  .titlebar-name .dim-name{color:var(--green);}
+  html[data-os="macos"] .titlebar-name .dim-name{color:var(--muted);}
+
+  /* ===== Titlebar controls (OS / theme toggles) ===== */
+  .titlebar-controls{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    z-index:1;
+  }
+  .toggle-group{
+    display:flex;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:2px;
+    gap:2px;
+  }
+  .toggle-btn{
+    font-family:var(--mono);
+    font-size:11px;
+    padding:5px 10px;
+    border:none;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    border-radius:4px;
+    transition:all .15s ease;
+    line-height:1;
+  }
+  .toggle-btn.icon-btn{padding:5px 8px;font-size:13px;}
+  .toggle-btn:hover{color:var(--text);}
+  .toggle-btn.active{
+    background:var(--blue);
+    color:#0d1117;
+    font-weight:600;
+  }
+  html[data-theme="light"] .toggle-btn.active{color:#fff;}
+
+  @media (max-width: 600px){
+    .titlebar{flex-wrap:wrap;row-gap:8px;}
+    html[data-os="macos"] .titlebar-name{position:static;transform:none;margin-left:8px;}
+    .titlebar-controls{margin-left:auto;}
+  }
+
+  /* ===== Layout ===== */
+  .layout{
+    display:flex;
+    max-width:1200px;
+    margin:0 auto;
+    min-height:calc(100vh - 41px);
+  }
+
+  /* ===== Sidebar / file tree ===== */
+  .sidebar{
+    width:240px;
+    flex-shrink:0;
+    background:var(--panel);
+    border-right:1px solid var(--border);
+    padding:24px 0;
+    position:sticky;
+    top:41px;
+    height:calc(100vh - 41px);
+    overflow-y:auto;
+  }
+  .sidebar-header{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:0 20px 14px;
+  }
+  .file-tree a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 20px;
+    color:var(--muted);
+    text-decoration:none;
+    font-family:var(--mono);
+    font-size:13px;
+    border-left:2px solid transparent;
+    transition:all .15s ease;
+  }
+  .file-tree a:hover, .file-tree a.active{
+    color:var(--text);
+    background:var(--panel-2);
+    border-left-color:var(--blue);
+  }
+  .file-tree .icon{font-size:14px;width:16px;text-align:center;}
+  .sidebar-footer{
+    padding:20px;
+    margin-top:20px;
+    border-top:1px solid var(--border);
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+  }
+  .sidebar-footer .status-dot{
+    display:inline-block;width:8px;height:8px;border-radius:50%;
+    background:var(--green); margin-right:6px;
+    box-shadow:0 0 6px var(--green);
+  }
+
+  /* ===== Main content ===== */
+  .main{flex:1;min-width:0;}
+  section{
+    padding:88px 56px;
+    border-bottom:1px solid var(--border);
+  }
+  section:last-child{border-bottom:none;}
+
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--blue);
+    background:rgba(88,166,255,0.1);
+    border:1px solid rgba(88,166,255,0.25);
+    border-radius:4px;
+    padding:3px 8px;
+    display:inline-block;
+    margin-bottom:16px;
+  }
+
+  /* ===== Hero ===== */
+  .hero{padding-top:56px;}
+  .hero-eyebrow{
+    font-family:var(--mono);
+    color:var(--green);
+    font-size:14px;
+    margin-bottom:12px;
+  }
+  .hero-eyebrow::before{content:'> ';color:var(--muted);}
+  h1{
+    font-family:var(--mono);
+    font-weight:800;
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    line-height:1.15;
+    letter-spacing:-1px;
+    margin-bottom:18px;
+  }
+  h1 .accent{color:var(--blue);}
+  .hero-sub{
+    color:var(--muted);
+    font-size:1.1rem;
+    max-width:620px;
+    margin-bottom:28px;
+  }
+  .hero-sub strong{color:var(--text);font-weight:600;}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:11px 20px;
+    border-radius:6px;
+    text-decoration:none;
+    border:1px solid var(--border);
+    color:var(--text);
+    transition:all .15s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn.primary{
+    background:var(--blue);
+    color:#0d1117;
+    border-color:var(--blue);
+    font-weight:600;
+  }
+  .btn.primary:hover{background:#79b8ff;}
+  .btn:hover{border-color:var(--blue);color:var(--blue);}
+
+  /* terminal block */
+  .terminal{
+    margin-top:40px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    max-width:640px;
+    box-shadow:0 8px 30px rgba(0,0,0,.35);
+  }
+  .terminal-head{
+    background:var(--panel-2);
+    padding:8px 14px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    border-bottom:1px solid var(--border);
+  }
+  .terminal-title{
+    margin-left:auto;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+  }
+  .terminal-body{
+    padding:18px 20px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+    cursor:text;
+    max-height:340px;
+    overflow-y:auto;
+  }
+  .terminal-body .line{margin-bottom:8px;word-break:break-word;}
+  .terminal-body .prompt{color:var(--green);}
+  .terminal-body .path{color:var(--blue);margin-right:6px;}
+  .terminal-body .out{color:var(--text);white-space:pre-wrap;}
+  .terminal-body .key{color:var(--purple);}
+  .terminal-body .val{color:var(--gold);}
+  .terminal-body .err{color:var(--pink);}
+  .terminal-body .lang-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  .input-line{display:flex;align-items:center;gap:0;}
+  .term-input-wrap{display:flex;align-items:center;flex:1;position:relative;}
+  #term-input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:13px;
+    flex:1;
+    caret-color:transparent;
+    padding:0;
+  }
+  .cursor{
+    display:inline-block;width:8px;height:14px;background:var(--green);
+    animation:blink 1s steps(1) infinite;vertical-align:middle;
+    margin-left:1px;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ===== Section headers ===== */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:36px;
+  }
+  .section-num{
+    font-family:var(--mono);
+    color:var(--border);
+    font-size:1.8rem;
+    font-weight:800;
+  }
+  h2{
+    font-family:var(--mono);
+    font-size:1.6rem;
+    font-weight:700;
+  }
+  h2 .dim{color:var(--muted);font-weight:400;}
+
+  /* ===== About ===== */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .about-text p{color:var(--muted);margin-bottom:16px;max-width:560px;}
+  .about-text p strong{color:var(--text);}
+  .stack-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px;
+  }
+  .stack-card h3{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:14px;
+  }
+  .stack-group{margin-bottom:16px;}
+  .stack-group:last-child{margin-bottom:0;}
+  .stack-group-label{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--blue);
+    margin-bottom:8px;
+    display:block;
+  }
+  .pill-row{display:flex;flex-wrap:wrap;gap:6px;}
+  .pill{
+    font-family:var(--mono);
+    font-size:12px;
+    padding:4px 10px;
+    border-radius:4px;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+
+  /* ===== Experience timeline ===== */
+  .timeline{
+    position:relative;
+    padding-left:28px;
+    border-left:2px solid var(--border);
+    max-width:720px;
+  }
+  .timeline-item{
+    position:relative;
+    padding-bottom:8px;
+  }
+  .timeline-dot{
+    position:absolute;
+    left:-35px;
+    top:6px;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--green);
+    box-shadow:0 0 8px rgba(126,231,135,0.5);
+  }
+  .timeline-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:4px;
+  }
+  .timeline-role{
+    font-family:var(--mono);
+    font-size:16px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .timeline-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--green);
+    background:rgba(126,231,135,0.1);
+    border:1px solid rgba(126,231,135,0.25);
+    border-radius:4px;
+    padding:2px 8px;
+  }
+  .timeline-org{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--blue);
+    margin-bottom:10px;
+  }
+  .timeline-desc{
+    color:var(--muted);
+    font-size:14px;
+    max-width:600px;
+    margin-bottom:12px;
+  }
+  .timeline-desc strong{color:var(--text);}
+
+  /* ===== Projects ===== */
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(320px,1fr));
+    gap:20px;
+  }
+  .project-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .project-card:hover{
+    border-color:var(--blue);
+    transform:translateY(-3px);
+  }
+  .project-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:12px;
+    gap:10px;
+  }
+  .project-title{
+    font-family:var(--mono);
+    font-size:15px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .project-lang{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    white-space:nowrap;
+    display:flex;align-items:center;gap:6px;
+  }
+  .lang-dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .project-desc{
+    color:var(--muted);
+    font-size:13.5px;
+    margin-bottom:16px;
+    flex-grow:1;
+  }
+  .project-link{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--blue);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .project-link:hover{text-decoration:underline;}
+
+  /* ===== Connect ===== */
+  .connect-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+    gap:14px;
+  }
+  .connect-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:18px;
+    text-decoration:none;
+    color:var(--text);
+    transition:all .15s ease;
+  }
+  .connect-card:hover{
+    border-color:var(--blue);
+    background:var(--panel-2);
+  }
+  .connect-label{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:6px;
+  }
+  .connect-value{
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:600;
+    word-break:break-all;
+  }
+
+  footer{
+    padding:32px 48px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+  }
+  footer .accent{color:var(--green);}
+
+  @media (max-width: 860px){
+    .layout{flex-direction:column;}
+    .sidebar{
+      position:static;
+      width:100%;
+      height:auto;
+      border-right:none;
+      border-bottom:1px solid var(--border);
+    }
+    .file-tree{
+      display:flex;
+      overflow-x:auto;
+      padding:0 12px;
+    }
+    .file-tree a{border-left:none;border-bottom:2px solid transparent;white-space:nowrap;}
+    .file-tree a:hover, .file-tree a.active{border-bottom-color:var(--blue);}
+    .sidebar-header,.sidebar-footer{display:none;}
+    section{padding:48px 22px;}
+    .about-grid{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="titlebar">
+    <div class="dots">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+    </div>
+    <div class="titlebar-name"><span class="win-icon"></span>kavin-antony <span class="dim-name">— portfolio</span></div>
+    <div class="titlebar-controls">
+      <div class="toggle-group" role="group" aria-label="Operating system style">
+        <button class="toggle-btn" data-os="arch" type="button">Arch</button>
+        <button class="toggle-btn" data-os="macos" type="button">macOS</button>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Color theme">
+        <button class="toggle-btn icon-btn" data-theme="dark" type="button" aria-label="Dark mode">🌙</button>
+        <button class="toggle-btn icon-btn" data-theme="light" type="button" aria-label="Light mode">☀️</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-header">Explorer</div>
+      <nav class="file-tree">
+        <a href="#home" class="active"><span class="icon">📄</span> home.md</a>
+        <a href="#about"><span class="icon">👤</span> about.json</a>
+        <a href="#experience"><span class="icon">💼</span> experience.log</a>
+        <a href="#projects"><span class="icon">📁</span> projects/</a>
+        <a href="#coding"><span class="icon">🏆</span> coding_profiles.json</a>
+        <a href="#connect"><span class="icon">🔗</span> connect.env</a>
+        <a href="https://github.com/Kavin-Antony/Kavin-Antony/blob/main/KAVIN%20ANTONY%20A%20R.pdf" target="_blank"><span class="icon">📑</span> resume.pdf</a>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>Coimbatore, IN · UTC+5:30
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <section class="hero" id="home">
+        <div class="hero-eyebrow">whoami</div>
+        <h1>Kavin Antony A R<br>Software Developer & <span class="accent">Problem Solver</span></h1>
+        <p class="hero-sub">
+          Based in <strong>Coimbatore, India</strong>. I build full‑stack web applications —
+          React on the frontend, FastAPI/Flask/Express/Phoenix on the backend — and sharpen my
+          fundamentals daily through DSA practice on <strong>LeetCode, CodeChef, HackerRank and GeeksforGeeks</strong>.
+          Currently learning <strong>Ash &amp; Elixir/Phoenix</strong>.
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">View projects</a>
+          <a class="btn" href="https://github.com/Kavin-Antony" target="_blank">GitHub ↗</a>
+          <a class="btn" href="https://www.linkedin.com/in/kavin-antony/" target="_blank">LinkedIn ↗</a>
+        </div>
+
+        <div class="terminal" id="terminal">
+          <div class="terminal-head">
+            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+            <span class="terminal-title">kavin@portfolio:~</span>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <div class="line"><span class="prompt">guest@portfolio</span><span class="path">:~$</span> whoami</div>
+            <div class="line out">kavin_antony — software developer</div>
+            <div class="line"><span class="prompt">guest@portfolio</span><span class="path">:~$</span> help</div>
+            <div class="line out">try: <span class="key">ls</span>, <span class="key">cd projects</span>, <span class="key">cd skills</span>, <span class="key">cd experience</span>, <span class="key">whoami</span>, <span class="key">clear</span></div>
+            <div class="line input-line">
+              <span class="prompt">guest@portfolio</span><span class="path" id="term-path">:~$</span>
+              <span class="term-input-wrap"><input type="text" id="term-input" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="cursor"></span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2>about<span class="dim">.json</span></h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              I'm a software developer who enjoys moving across the stack — from wiring up a
+              <strong>React</strong> UI, to designing a <strong>FastAPI</strong> or <strong>Flask</strong> backend,
+              to modeling data in <strong>SQL</strong> or <strong>MongoDB</strong>. Lately I've been digging into
+              <strong>Elixir, Phoenix, LiveView and Ash</strong>, exploring real‑time and CRUD‑heavy apps.
+            </p>
+            <p>
+              I also dabble in <strong>data &amp; ML</strong> — from dashboards in Tableau/Power BI to
+              audio‑classification with TensorFlow/PyTorch and Librosa. Outside of coding, I keep my
+              problem‑solving sharp on LeetCode, HackerRank and GeeksforGeeks.
+            </p>
+            <p>
+              Reach me at <strong>kavinantonyar@gmail.com</strong>.
+            </p>
+          </div>
+          <div class="stack-card">
+            <h3>Tech stack</h3>
+            <div class="stack-group">
+              <span class="stack-group-label">// languages</span>
+              <div class="pill-row">
+                <span class="pill">Python</span>
+                <span class="pill">C++</span>
+                <span class="pill">Java</span>
+                <span class="pill">JavaScript</span>
+              </div>
+            </div>
+            <div class="stack-group">
+              <span class="stack-group-label">// frontend</span>
+              <div class="pill-row">
+                <span class="pill">HTML5</span>
+                <span class="pill">CSS3</span>
+                <span class="pill">React</span>
+              </div>
+            </div>
+            <div class="stack-group">
+              <span class="stack-group-label">// backend</span>
+              <div class="pill-row">
+                <span class="pill">Node.js</span>
+                <span class="pill">Express</span>
+                <span class="pill">Flask</span>
+                <span class="pill">FastAPI</span>
+                <span class="pill">Phoenix</span>
+                <span class="pill">Ash</span>
+              </div>
+            </div>
+            <div class="stack-group">
+              <span class="stack-group-label">// data &amp; ml</span>
+              <div class="pill-row">
+                <span class="pill">MongoDB</span>
+                <span class="pill">Oracle SQL</span>
+                <span class="pill">TensorFlow</span>
+                <span class="pill">PyTorch</span>
+                <span class="pill">Librosa</span>
+                <span class="pill">Tableau</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2>experience<span class="dim">.log</span></h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-top">
+                <span class="timeline-role">Software Developer Intern</span>
+                <span class="timeline-date">Current</span>
+              </div>
+              <div class="timeline-org">Tekmedia Software</div>
+              <p class="timeline-desc">
+                Working on a <strong>Video Management System (VMS)</strong> — built out the system end‑to‑end,
+                covering live video streaming, device/camera management, and the surrounding application
+                logic that ties recording, playback and monitoring together.
+              </p>
+              <div class="pill-row">
+                <span class="pill">VMS</span>
+                <span class="pill">Video Streaming</span>
+                <span class="pill">Full‑Stack</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2>projects<span class="dim">/</span></h2>
+        </div>
+        <div class="projects-grid">
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Ash‑Phoenix LiveView HelpDesk</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--gold)"></span>JavaScript</span>
+            </div>
+            <p class="project-desc">A help‑desk app built on Ash, Phoenix and LiveView — exploring real‑time, server‑rendered UI patterns with the Ash framework.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Ash-Phoenix_LiveView-HelpDesk" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Phoenix LiveView CRUD — Product Management</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--purple)"></span>Elixir</span>
+            </div>
+            <p class="project-desc">A real‑time CRUD product management system built with Phoenix LiveView, demonstrating live updates without writing JavaScript.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Phoenix-LiveView-Real-time-CRUD-Product-Management-System" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Employee Management — Ash + Phoenix</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--purple)"></span>Elixir</span>
+            </div>
+            <p class="project-desc">An employee management system built with the Ash framework on Phoenix, focused on resource modeling and clean data flows.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Employee_Management-ASH-PHOENIX" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">FM Ad Skipper — ADSIFT</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--blue)"></span>Python</span>
+            </div>
+            <p class="project-desc">A full‑stack app (React + FastAPI + ResNet18) that detects FM radio advertisements in real time and skips them, using a deep‑learning audio classifier.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/ADSIFT-Full-Stack-App-with-React-FastAPI-Resnet18" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Currency Converter — Real‑Time Insights</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--blue)"></span>Python</span>
+            </div>
+            <p class="project-desc">A web app for real‑time currency conversion using the Frankfurter API, optimized for fast response times.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Currency_Converter" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">React Audio Player</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--gold)"></span>JavaScript</span>
+            </div>
+            <p class="project-desc">A single‑page audio player built with React.js — a practice ground for core React fundamentals like state and component composition.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Music_Player_using_React" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Decentralized Energy Marketplace</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--green)"></span>Blockchain</span>
+            </div>
+            <p class="project-desc">A blockchain‑based peer‑to‑peer trading system, exploring decentralized consensus for energy and legal‑document verification use cases.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Decentralized-Energy-Marketplace-A-Blockchain-Based-Peer-to-Peer-Trading-System" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Smart Pet Feeding &amp; Water Monitoring</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--pink)"></span>IoT</span>
+            </div>
+            <p class="project-desc">An IoT system for automated pet food dispensing and water‑level monitoring, with real‑time control over the web.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Smart-Pet-Feeding-and-Water-Monitoring-System" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Employee Performance Dashboard</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--gold)"></span>Tableau / Power BI</span>
+            </div>
+            <p class="project-desc">A data‑visualization project tracking employee performance, built with Power BI and Tableau.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Employee-Performance-Dashboard-using-Tableau" target="_blank">View repo ↗</a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-head">
+              <span class="project-title">Library Management System</span>
+              <span class="project-lang"><span class="lang-dot" style="background:var(--pink)"></span>C++</span>
+            </div>
+            <p class="project-desc">A console‑based library management system in C++, revisiting core OOP concepts: classes, inheritance and polymorphism.</p>
+            <a class="project-link" href="https://github.com/Kavin-Antony/Library-Management-System---OOPS" target="_blank">View repo ↗</a>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="coding">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2>coding_profiles<span class="dim">.json</span></h2>
+        </div>
+        <div class="connect-grid">
+          <a class="connect-card" href="https://leetcode.com/u/ar-ka/" target="_blank">
+            <div class="connect-label">LeetCode</div>
+            <div class="connect-value">ar-ka</div>
+          </a>
+          <a class="connect-card" href="https://www.geeksforgeeks.org/profile/kavin_antony" target="_blank">
+            <div class="connect-label">GeeksforGeeks</div>
+            <div class="connect-value">kavin_antony</div>
+          </a>
+          <a class="connect-card" href="https://www.hackerrank.com/profile/ar_ka" target="_blank">
+            <div class="connect-label">HackerRank</div>
+            <div class="connect-value">ar_ka</div>
+          </a>
+          <a class="connect-card" href="https://www.codechef.com/users/kavinantony" target="_blank">
+            <div class="connect-label">CodeChef</div>
+            <div class="connect-value">kavinantony</div>
+          </a>
+        </div>
+      </section>
+
+      <section id="connect">
+        <div class="section-head">
+          <span class="section-num">05</span>
+          <h2>connect<span class="dim">.env</span></h2>
+        </div>
+        <div class="connect-grid">
+          <a class="connect-card" href="mailto:kavinantonyar@gmail.com">
+            <div class="connect-label">Email</div>
+            <div class="connect-value">kavinantonyar@gmail.com</div>
+          </a>
+          <a class="connect-card" href="https://github.com/Kavin-Antony" target="_blank">
+            <div class="connect-label">GitHub</div>
+            <div class="connect-value">Kavin-Antony</div>
+          </a>
+          <a class="connect-card" href="https://www.linkedin.com/in/kavin-antony/" target="_blank">
+            <div class="connect-label">LinkedIn</div>
+            <div class="connect-value">kavin-antony</div>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <span class="accent">✓</span> built &amp; deployed — Kavin Antony A R © 2026
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // Active link highlight on scroll
+    const links = document.querySelectorAll('.file-tree a[href^="#"]');
+    const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+    window.addEventListener('scroll', () => {
+      let current = sections[0];
+      for (const sec of sections) {
+        if (sec.getBoundingClientRect().top - 100 <= 0) current = sec;
+      }
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current.id));
+    });
+
+    // OS chrome + theme toggles
+    (function(){
+      const html = document.documentElement;
+      const osBtns = document.querySelectorAll('[data-os]');
+      const themeBtns = document.querySelectorAll('[data-theme]');
+
+      function setOS(os){
+        html.setAttribute('data-os', os);
+        osBtns.forEach(b => b.classList.toggle('active', b.dataset.os === os));
+      }
+      function setTheme(theme){
+        html.setAttribute('data-theme', theme);
+        themeBtns.forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+      }
+
+      osBtns.forEach(b => b.addEventListener('click', () => setOS(b.dataset.os)));
+      themeBtns.forEach(b => b.addEventListener('click', () => setTheme(b.dataset.theme)));
+
+      // defaults
+      setOS('arch');
+      setTheme('dark');
+    })();
+
+    // Interactive terminal
+    (function(){
+      const body = document.getElementById('terminal-body');
+      const input = document.getElementById('term-input');
+      const pathEl = document.getElementById('term-path');
+      const inputLine = body.querySelector('.input-line');
+
+      let cwd = '~';
+
+      const dirs = {
+        '~': ['about.json','experience.log','projects/','skills/','coding_profiles.json','connect.env'],
+        'projects': [
+          'Ash-Phoenix_LiveView-HelpDesk        Elixir',
+          'Phoenix-LiveView-CRUD-ProductMgmt    Elixir',
+          'Employee_Management-ASH-PHOENIX      Elixir',
+          'ADSIFT-FM-Ad-Skipper                 Python',
+          'Currency_Converter                   Python',
+          'Music_Player_using_React             JavaScript',
+          'Decentralized-Energy-Marketplace      Blockchain',
+          'Smart-Pet-Feeding-System             IoT',
+          'Employee-Performance-Dashboard       Tableau',
+          'Library-Management-System            C++'
+        ],
+        'skills': [
+          'languages/    Python, C++, Java, JavaScript',
+          'frontend/     HTML5, CSS3, React',
+          'backend/      Node.js, Express, Flask, FastAPI, Phoenix, Ash',
+          'data-ml/      MongoDB, Oracle SQL, TensorFlow, PyTorch, Librosa, Tableau'
+        ]
+      };
+
+      const languages = [
+        { name: 'Python',     color: 'var(--blue)'   },
+        { name: 'C++',        color: 'var(--pink)'   },
+        { name: 'Java',       color: 'var(--gold)'   },
+        { name: 'JavaScript', color: 'var(--gold)'   },
+        { name: 'Elixir',     color: 'var(--purple)' },
+        { name: 'HTML/CSS',   color: 'var(--green)'  },
+      ];
+
+      function escapeHtml(s){
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      function addLine(html, cls){
+        const div = document.createElement('div');
+        div.className = 'line' + (cls ? ' ' + cls : '');
+        div.innerHTML = html;
+        body.insertBefore(div, inputLine);
+      }
+
+      function promptHtml(){
+        return `<span class="prompt">guest@portfolio</span><span class="path">:${cwd}$</span>`;
+      }
+
+      function renderLs(){
+        if (cwd === '~') return dirs['~'].join('  ');
+        if (cwd === '~/projects') {
+          return dirs['projects'].join('\n');
+        }
+        if (cwd === '~/skills') {
+          return dirs['skills'].join('\n');
+        }
+        return '';
+      }
+
+      function handleCommand(raw){
+        const cmd = raw.trim();
+        addLine(`${promptHtml()} ${escapeHtml(cmd)}`);
+
+        if (cmd === '') { return; }
+
+        if (cmd === 'clear') {
+          // remove all output lines
+          [...body.querySelectorAll('.line')].forEach(l => {
+            if (l !== inputLine) l.remove();
+          });
+          return;
+        }
+
+        if (cmd === 'help') {
+          addLine(`<span class="out">available commands:
+  <span class="key">whoami</span>        — about me
+  <span class="key">ls</span>            — list contents of current directory
+  <span class="key">cd &lt;dir&gt;</span>      — navigate (projects, skills, experience, ~)
+  <span class="key">cat resume.pdf</span> — open resume
+  <span class="key">clear</span>         — clear terminal</span>`);
+          return;
+        }
+
+        if (cmd === 'whoami') {
+          addLine(`<span class="out">kavin_antony — software developer @ Tekmedia Software (intern)
+currently building a Video Management System (VMS)</span>`);
+          return;
+        }
+
+        if (cmd === 'ls' || cmd === 'ls -la' || cmd === 'ls -l') {
+          if (cwd === '~/languages' || cwd.endsWith('languages')) {
+            languages.forEach(l => {
+              addLine(`<span class="lang-row"><span class="lang-dot" style="background:${l.color}"></span><span class="out">${l.name}</span></span>`);
+            });
+            return;
+          }
+          const out = renderLs();
+          if (out) addLine(`<span class="out">${escapeHtml(out)}</span>`);
+          return;
+        }
+
+        if (cmd.startsWith('cd')) {
+          const target = cmd.replace('cd','').trim();
+          if (target === '' || target === '~') {
+            cwd = '~';
+          } else if (target === 'projects' || target === 'projects/' || target === '~/projects') {
+            cwd = '~/projects';
+          } else if (target === 'skills' || target === 'skills/' || target === '~/skills') {
+            cwd = '~/skills';
+          } else if (target === 'languages' || target === 'skills/languages') {
+            cwd = '~/skills/languages';
+          } else if (target === 'experience' || target === '~/experience') {
+            addLine(`<span class="out">jumping to experience.log ↓</span>`);
+            document.getElementById('experience').scrollIntoView({behavior:'smooth'});
+            return;
+          } else if (target === '..') {
+            cwd = '~';
+          } else {
+            addLine(`<span class="err">cd: no such file or directory: ${escapeHtml(target)}</span>`);
+            return;
+          }
+          pathEl.textContent = `:${cwd}$`;
+          return;
+        }
+
+        if (cmd === 'cat resume.pdf' || cmd === 'cat resume') {
+          addLine(`<span class="out">opening resume.pdf ↗</span>`);
+          window.open('https://github.com/Kavin-Antony/Kavin-Antony/blob/main/KAVIN%20ANTONY%20A%20R.pdf','_blank');
+          return;
+        }
+
+        if (cmd === 'pwd') {
+          addLine(`<span class="out">${escapeHtml(cwd)}</span>`);
+          return;
+        }
+
+        if (cmd === 'sudo' || cmd.startsWith('sudo ')) {
+          addLine(`<span class="err">guest is not in the sudoers file. This incident will not be reported 😉</span>`);
+          return;
+        }
+
+        addLine(`<span class="err">command not found: ${escapeHtml(cmd)} — try 'help'</span>`);
+      }
+
+      // keep focus & cursor at end
+      body.addEventListener('click', () => input.focus());
+      input.focus();
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = input.value;
+          input.value = '';
+          handleCommand(val);
+          inputLine.scrollIntoView({block:'end'});
+          body.scrollTop = body.scrollHeight;
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
